@@ -28,8 +28,8 @@ class insumosServices {
     }
     static async rejectInsumo(id, motivo_de_rechazo) {
         try {
-            await insumosModel.update({ motivo_de_rechazo }, { where: { id } })
-
+            const response=await insumosModel.update({ motivo_de_rechazo }, { where: { id } })
+            return response
         } catch (error) {
             throw error
         }
