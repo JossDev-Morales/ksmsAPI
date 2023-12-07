@@ -97,23 +97,27 @@ const verifyVigenciaDocs = async (req, res) => {
         const etapa = await insumosServices.getEtapaById(id)
         const doclist = await docsServices.getDocsObByEtapaById(id, etapa)
 
-        const listStatus = doclist.filter(doc => {
-            if (!docsServices.verifyVigenciaService(doc.vigencia)) {
-                return doc.nombre
+        if (doclist.length===0) {
+            res.status(200).json({docs_status:'no hay documentos para validar la vigencia',docs_list:doclist})
+        }else{
+            const listStatus = doclist.filter(doc => {
+                if (!docsServices.verifyVigenciaService(doc.vigencia)) {
+                    return doc.nombre
+                }
+            })
+            if (listStatus === 0) {
+                res.status(200).json({
+                    vigencias_correctas: listStatus.length === 0
+                })
+            } else {
+                res.status(200).json({
+                    vigencias_correctas: listStatus.length === 0,
+                    documentos_con_vigencia_vencida: listStatus
+                })
             }
-        })
-        if (listStatus === 0) {
-            res.status(200).json({
-                vigencias_correctas: listStatus.length === 0
-            })
-        } else {
-            res.status(200).json({
-                vigencias_correctas: listStatus.length === 0,
-                documentos_con_vigencia_vencida: listStatus
-            })
+    
+    
         }
-
-
     } catch (error) {
         res.status(500).json(error)
     }
