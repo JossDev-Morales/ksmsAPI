@@ -43,7 +43,7 @@ const insumosModel = DB.define('insumos', {
     },
     descripcion_de_la_vivienda: {
         type: DataTypes.ENUM,
-        values: ["Casa habitación nueva", "Casa habitación usada", "Departamento nuevo", "Departamento usado"]
+        values: ["Casa habitacion nueva", "Casa habitacion usada", "Departamento nuevo", "Departamento usado"]
     },
     area_construida: {
         type: DataTypes.INTEGER
@@ -61,7 +61,8 @@ const insumosModel = DB.define('insumos', {
         type: DataTypes.STRING
     },
     identificar_de_excepcion_numero_interior: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull:true
     },
     ciudad: {
         type: DataTypes.STRING
