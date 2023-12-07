@@ -19,7 +19,6 @@ const addComplement = async (req, res) => {
         const complement = await complementsServices.addComplementToInsumo(id, { nombre, metadatos: { folio_kosmos, numero_de_cliente, nombre_completo, fecha_de_registro_del_documento, tramite_en_el_que_se_uso, tipo_del_producto_contratado, numero_de_credito } })
         res.status(201).json(complement)
     } catch (error) {
-        console.log(error);
         res.status(400).json(error)
     }
 }
