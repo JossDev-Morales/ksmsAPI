@@ -32,6 +32,9 @@ const getInsumo = async (req, res) => {
             throw new customError({ name: 'invalId', message: 'id can not be undefined', id })
         }
         const insumo = await insumosServices.getInsumoById(id)
+        if (insumo===null) {
+            throw new customError({name:'wrongId',message:'this insumo do not exist'})
+        }
         res.status(200).json(insumo)
     } catch (error) {
         res.status(500).json({error})
@@ -43,7 +46,10 @@ const deleteInsumo = async (req, res) => {
         if (!id) {
             throw new customError({ name: 'invalId', message: 'id can not be undefined', id })
         }
-        await insumosServices.deleteInsumoById(id)
+        const response = await insumosServices.deleteInsumoById(id)
+        if (response===null) {
+            throw new customError({name:'wrongId',message:'this insumo do not exist'})
+        }
         res.status(204).send()
     } catch (error) {
         res.status(500).json({error})

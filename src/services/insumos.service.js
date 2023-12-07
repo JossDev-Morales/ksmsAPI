@@ -1,5 +1,6 @@
 const { where } = require('sequelize')
 const insumosModel = require('../models/insumos.model')
+const customError = require('../utils/customError')
 
 class insumosServices {
     static async createInsumo(insumo) {
@@ -50,10 +51,11 @@ class insumosServices {
     }
     static async updateInsumo(insumo, id) {
         try {
-            console.log(insumo);
             const { tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus } = insumo
             const response = await insumosModel.update({ tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus }, { where: { id } })
-            console.log(response);
+            if (response===null) {
+                throw new customError({name:'wrongId',message:'this insumo do not exist'})
+            }
         } catch (error) {
             throw error
         }
@@ -69,6 +71,9 @@ class insumosServices {
     static async getEtapaById(id) {
         try {
             const response = await insumosModel.findByPk(id)
+            if (response===null) {
+                throw new customError({name:'wrongId',message:'this insumo do not exist'})
+            }
             return response.etapa
         } catch (error) {
             throw error

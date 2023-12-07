@@ -85,7 +85,7 @@ const verifyDocsObligatorios = async (req, res) => {
 
 
     } catch (error) {
-        res.status(500).json({error})
+        res.status(400).json({error})
     }
 }
 const verifyVigenciaDocs = async (req, res) => {
@@ -119,7 +119,7 @@ const verifyVigenciaDocs = async (req, res) => {
     
         }
     } catch (error) {
-        res.status(500).json({error})
+        res.status(400).json({error})
     }
 }
 
