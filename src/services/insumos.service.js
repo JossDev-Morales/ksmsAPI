@@ -28,7 +28,9 @@ class insumosServices {
     }
     static async rejectInsumo(id, motivo_de_rechazo) {
         try {
+            console.log('alive1');
             const response=await insumosModel.update({ motivo_de_rechazo }, { where: { id } })
+            console.log('alive12');
             return response
         } catch (error) {
             throw error
