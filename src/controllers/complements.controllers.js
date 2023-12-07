@@ -12,13 +12,10 @@ const addComplement = async (req, res) => {
             throw new customError({ name: 'invalidData', message: 'nombre can not be undefined', nombre })
         }
         //verificar que no se repitan
-        console.log('alive')
         const insumoComplements = await complementsServices.getComplementNames(id)
-        console.log('alive')
         if (insumoComplements.some((name)=>name===nombre)) {
             throw new customError({name:'invalidComplementRequest',message:'this complemento already been requested'})
         }
-        console.log('alive')
         const complement = await complementsServices.addComplementToInsumo(id, { nombre, metadatos: { folio_kosmos, numero_de_cliente, nombre_completo, fecha_de_registro_del_documento, tramite_en_el_que_se_uso, tipo_del_producto_contratado, numero_de_credito } })
         res.status(201).json(complement)
     } catch (error) {
