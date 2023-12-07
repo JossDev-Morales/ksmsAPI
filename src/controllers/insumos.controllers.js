@@ -97,7 +97,7 @@ const estatusChanger= async (req,res)=>{
         if (!id) {
             throw new customError({ name: 'invalId', message: 'id can not be undefined', id })
         }
-        if (!estatus) {
+        if (estatus===undefined) {
             throw new customError({name:'estatusMissing',message:'you need to provide an estatus'})
         }
         await insumosServices.changeEstatus(id,estatus)
