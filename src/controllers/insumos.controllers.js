@@ -85,9 +85,8 @@ const reasonOfRejection = async (req, res) => {
         if (!motivo_de_rechazo) {
             throw new customError({ name: 'invalData', message: 'motivo_de_rechazo can not be undefined', motivo_de_rechazo })
         }
-        console.log(motivo_de_rechazo);
         const response = await insumosServices.rejectInsumo(id, motivo_de_rechazo)
-        //console.log(response);
+        res.status(200).send()
     } catch (error) {
         res.status(500).json({error})
     }
