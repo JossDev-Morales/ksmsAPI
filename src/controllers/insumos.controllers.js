@@ -106,9 +106,18 @@ const estatusChanger = async (req, res) => {
         res.status(400).json({ error })
     }
 }
-const changeActive = (req, res) => {
+const changeActive = async (req, res) => {
     try {
-        res.status(200).json({ message: `este endpoint esta desactivado, pero simula que el estado activo cambio a ${req.body.active} para el insumo con id: ${req.body.id} `})
+        const { id, activo } = req.body
+        if (!id) {
+            throw new customError({name: 'invalId', message: 'id can not be undefined', id })
+        }
+        if (activo===undefined) {
+            throw new customError({name:'invalidData',message:'Tienes que proporcionar un estado activo'})
+        }
+        await insumosServices.changeIsActive(id,activo)
+
+        res.status(200).send()
     } catch (error) {
         res.status(400).json({ error })
     }
