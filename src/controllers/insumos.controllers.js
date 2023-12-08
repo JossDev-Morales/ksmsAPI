@@ -33,7 +33,7 @@ const getInsumo = async (req, res) => {
         }
         const insumo = await insumosServices.getInsumoById(id)
         if (insumo === null) {
-            throw new customError({ name: 'wrongId', message: 'this insumo do not exist',status:204 })
+            throw new customError({ name: 'wrongId', message: 'this insumo do not exist',status:200 })
         }
         res.status(200).json(insumo)
     } catch (error) {
