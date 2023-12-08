@@ -120,6 +120,5 @@ module.exports = {
     deleteInsumo,
     updateEtapa,
     reasonOfRejection,
-    estatusChanger,
-    changeActive
+    estatusChanger
 }
