@@ -103,7 +103,14 @@ const estatusChanger= async (req,res)=>{
         await insumosServices.changeEstatus(id,estatus)
         res.status(200).send()
     } catch (error) {
-        res.status(500).json({error})
+        res.status(400).json({error})
+    }
+}
+const changeActive=async (req,res)=>{
+    try {
+        throw new customError({message:'este endpoint esta desactivado, pero simula que el estado activo cambio a '+req.body?.activo+' para el insumo con id '+req.body?.id})
+    } catch (error) {
+        res.status(400).json({error})
     }
 }
 module.exports = {
