@@ -136,7 +136,7 @@ const insumosModel = DB.define('insumos', {
         type: DataTypes.INTEGER
     },
     estatus: {
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
     }
 }, {
     createdAt: 'fechaCreacionInsumo',
