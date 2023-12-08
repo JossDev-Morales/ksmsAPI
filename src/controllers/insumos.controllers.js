@@ -5,9 +5,9 @@ const createInsumo = async (req, res) => {
     try {
         const insumo = req.body
         const response = await insumosServices.createInsumo(insumo)
-        res.status(201).json({message:`Nuevo insumo creado con el id: ${response.id}`,id:response.id})
+        res.status(201).json({ message: `Nuevo insumo creado con el id: ${response.id}`, id: response.id })
     } catch (error) {
-        res.status(500).json({error})
+        res.status(500).json({ error })
     }
 }
 const updateInsumo = async (req, res) => {
@@ -22,7 +22,7 @@ const updateInsumo = async (req, res) => {
         await insumosServices.updateInsumo(insumo, id)
         res.status(200).send()
     } catch (error) {
-        res.status(500).json({error})
+        res.status(500).json({ error })
     }
 }
 const getInsumo = async (req, res) => {
@@ -32,27 +32,27 @@ const getInsumo = async (req, res) => {
             throw new customError({ name: 'invalId', message: 'id can not be undefined', id })
         }
         const insumo = await insumosServices.getInsumoById(id)
-        if (insumo===null) {
-            throw new customError({name:'wrongId',message:'this insumo do not exist'})
+        if (insumo === null) {
+            throw new customError({ name: 'wrongId', message: 'this insumo do not exist' })
         }
         res.status(200).json(insumo)
     } catch (error) {
-        res.status(500).json({error})
+        res.status(500).json({ error })
     }
 }
 const deleteInsumo = async (req, res) => {
     try {
-        const {id} = req.body
+        const { id } = req.body
         if (!id) {
             throw new customError({ name: 'invalId', message: 'id can not be undefined', id })
         }
         const response = await insumosServices.deleteInsumoById(id)
-        if (response===null) {
-            throw new customError({name:'wrongId',message:'this insumo do not exist'})
+        if (response === null) {
+            throw new customError({ name: 'wrongId', message: 'this insumo do not exist' })
         }
         res.status(204).send()
     } catch (error) {
-        res.status(500).json({error})
+        res.status(500).json({ error })
     }
 }
 const updateEtapa = async (req, res) => {
@@ -73,7 +73,7 @@ const updateEtapa = async (req, res) => {
         }
 
     } catch (error) {
-        res.status(500).json({error})
+        res.status(500).json({ error })
     }
 }
 const reasonOfRejection = async (req, res) => {
@@ -88,29 +88,29 @@ const reasonOfRejection = async (req, res) => {
         const response = await insumosServices.rejectInsumo(id, motivo_de_rechazo)
         res.status(200).send()
     } catch (error) {
-        res.status(500).json({error})
+        res.status(500).json({ error })
     }
 }
-const estatusChanger= async (req,res)=>{
+const estatusChanger = async (req, res) => {
     try {
-        const { id, estatus}=req.body
+        const { id, estatus } = req.body
         if (!id) {
             throw new customError({ name: 'invalId', message: 'id can not be undefined', id })
         }
-        if (estatus===undefined) {
-            throw new customError({name:'estatusMissing',message:'you need to provide an estatus'})
+        if (estatus === undefined) {
+            throw new customError({ name: 'estatusMissing', message: 'you need to provide an estatus' })
         }
-        await insumosServices.changeEstatus(id,estatus)
+        await insumosServices.changeEstatus(id, estatus)
         res.status(200).send()
     } catch (error) {
-        res.status(400).json({error})
+        res.status(400).json({ error })
     }
 }
-const changeActive=async (req,res)=>{
+const changeActive = async (req, res) => {
     try {
-        throw new customError({message:'este endpoint esta desactivado, pero simula que el estado activo cambio a '+req.body?.activo+' para el insumo con id '+req.body?.id})
+        throw new customError({ message: 'este endpoint esta desactivado, pero simula que el estado activo cambio a ' + req.body?.activo + ' para el insumo con id ' + req.body?.id })
     } catch (error) {
-        res.status(400).json({error})
+        res.status(400).json({ error })
     }
 }
 module.exports = {
