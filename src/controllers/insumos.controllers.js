@@ -66,10 +66,10 @@ const updateEtapa = async (req, res) => {
 
         if (etapa > 3) {
             await insumosServices.upSubetapa(id, "3.1")
-            res.status(200).send()
+            res.status(200).json({status:'ok'})
         } else {
             await insumosServices.upEtapa(id, etapa)
-            res.status(200).send()
+            res.status(200).json({status:'ok'})
         }
 
     } catch (error) {
@@ -86,7 +86,7 @@ const reasonOfRejection = async (req, res) => {
             throw new customError({ name: 'invalData', message: 'motivo_de_rechazo can not be undefined', motivo_de_rechazo })
         }
         const response = await insumosServices.rejectInsumo(id, motivo_de_rechazo)
-        res.status(200).send()
+        res.status(200).json({status:'ok'})
     } catch (error) {
         res.status(500).json({ error })
     }
@@ -101,7 +101,7 @@ const estatusChanger = async (req, res) => {
             throw new customError({ name: 'estatusMissing', message: 'you need to provide an estatus' })
         }
         await insumosServices.changeEstatus(id, estatus)
-        res.status(200).send()
+        res.status(200).json({status:'ok'})
     } catch (error) {
         res.status(400).json({ error })
     }
@@ -117,7 +117,7 @@ const changeActive = async (req, res) => {
         }
         await insumosServices.changeIsActive(id,activo)
 
-        res.status(200).send()
+        res.status(200).json({status:'ok'})
     } catch (error) {
         res.status(400).json({ error })
     }
