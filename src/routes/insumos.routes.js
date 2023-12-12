@@ -13,4 +13,5 @@ insumosRouter.put('/api/v1/insumo/estatus',estatusChanger)
 insumosRouter.put('/api/v1/insumo/activo',changeActive)
 
 
+
 module.exports=insumosRouter

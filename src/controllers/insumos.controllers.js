@@ -7,7 +7,7 @@ const createInsumo = async (req, res) => {
         const response = await insumosServices.createInsumo(insumo)
         res.status(201).json({ message: `Nuevo insumo creado con el id: ${response.id}`, id: response.id })
     } catch (error) {
-        res.status(500).json({ error })
+        res.status(200).json({ error })
     }
 }
 const updateInsumo = async (req, res) => {
@@ -22,7 +22,7 @@ const updateInsumo = async (req, res) => {
         await insumosServices.updateInsumo(insumo, id)
         res.status(200).send()
     } catch (error) {
-        res.status(500).json({ error })
+        res.status(200).json({ error })
     }
 }
 const getInsumo = async (req, res) => {
@@ -33,11 +33,11 @@ const getInsumo = async (req, res) => {
         }
         const insumo = await insumosServices.getInsumoById(id)
         if (insumo === null) {
-            throw new customError({ name: 'wrongId', message: 'this insumo do not exist',status:200 })
+            throw new customError({ name: 'wrongId', message: 'this insumo do not exist'})
         }
         res.status(200).json(insumo)
     } catch (error) {
-        res.status(error.status??500).json({ error })
+        res.status(200).json({ error })
     }
 }
 const deleteInsumo = async (req, res) => {
@@ -52,7 +52,7 @@ const deleteInsumo = async (req, res) => {
         }
         res.status(204).send()
     } catch (error) {
-        res.status(500).json({ error })
+        res.status(200).json({ error })
     }
 }
 const updateEtapa = async (req, res) => {
@@ -73,7 +73,7 @@ const updateEtapa = async (req, res) => {
         }
 
     } catch (error) {
-        res.status(500).json({ error })
+        res.status(200).json({ error })
     }
 }
 const reasonOfRejection = async (req, res) => {
@@ -88,7 +88,7 @@ const reasonOfRejection = async (req, res) => {
         const response = await insumosServices.rejectInsumo(id, motivo_de_rechazo)
         res.status(200).json({status:'ok'})
     } catch (error) {
-        res.status(500).json({ error })
+        res.status(200).json({ error })
     }
 }
 const estatusChanger = async (req, res) => {
@@ -103,7 +103,7 @@ const estatusChanger = async (req, res) => {
         await insumosServices.changeEstatus(id, estatus)
         res.status(200).json({status:'ok'})
     } catch (error) {
-        res.status(400).json({ error })
+        res.status(200).json({ error })
     }
 }
 const changeActive = async (req, res) => {
@@ -119,7 +119,7 @@ const changeActive = async (req, res) => {
 
         res.status(200).json({status:'ok'})
     } catch (error) {
-        res.status(400).json({ error })
+        res.status(300).json({ error })
     }
 }
 module.exports = {

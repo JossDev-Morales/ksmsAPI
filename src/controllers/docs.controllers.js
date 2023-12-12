@@ -15,7 +15,7 @@ const createAndAddDoc = async (req, res) => {
             throw new customError({ name: 'invalidData', message: 'vigencia can not be undefined', vigencia })
         }
         if (isNaN(new Date(vigencia).getMilliseconds())) {
-            throw new customError({name:'invalidData',message:'vigencia tiene un formato errono.',vigencia})
+            throw new customError({ name: 'invalidData', message: 'vigencia tiene un formato errono.', vigencia })
         }
         if (!documento) {
             throw new customError({ name: 'invalidData', message: 'documento can not be undefined', documento })
@@ -59,7 +59,7 @@ const createAndAddDoc = async (req, res) => {
             DocId: doc.id
         })
     } catch (error) {
-        res.status(400).json({error})
+        res.status(200).json({ error })
     }
 }
 
@@ -85,7 +85,7 @@ const verifyDocsObligatorios = async (req, res) => {
 
 
     } catch (error) {
-        res.status(400).json({error})
+        res.status(200).json({ error })
     }
 }
 const verifyVigenciaDocs = async (req, res) => {
@@ -97,9 +97,9 @@ const verifyVigenciaDocs = async (req, res) => {
         const etapa = await insumosServices.getEtapaById(id)
         const doclist = await docsServices.getDocsObByEtapaById(id, etapa)
 
-        if (doclist.length===0) {
-            res.status(200).json({docs_status:'no hay documentos para validar la vigencia',docs_list:doclist})
-        }else{
+        if (doclist.length === 0) {
+            res.status(200).json({ docs_status: 'no hay documentos para validar la vigencia', docs_list: doclist })
+        } else {
             const listStatus = doclist.filter(doc => {
                 if (!docsServices.verifyVigenciaService(doc.vigencia)) {
                     return doc.nombre
@@ -115,14 +115,29 @@ const verifyVigenciaDocs = async (req, res) => {
                     documentos_con_vigencia_vencida: listStatus
                 })
             }
-    
-    
+
+
         }
     } catch (error) {
-        res.status(400).json({error})
+        res.status(200).json({ error })
     }
 }
-
+const getDocsOfInsumo = async (req, res) => {
+    try {
+        const { id } = req.body
+        if (!id) {
+            throw new customError({ name: 'invalidId', message: 'id can not be undefined', id })
+        }
+        const docList = await docsServices.getAllDocs(id) 
+        const countDocs = await docsServices.countDocs(id)
+        res.statis(200).json({
+            count:countDocs,
+            doc_list:docList
+        })
+    } catch (error) {
+        res.status(200).json({ error })
+    }
+}
 
 module.exports = {
     createAndAddDoc,
