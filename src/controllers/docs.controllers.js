@@ -142,5 +142,6 @@ const getDocsOfInsumo = async (req, res) => {
 module.exports = {
     createAndAddDoc,
     verifyDocsObligatorios,
-    verifyVigenciaDocs
+    verifyVigenciaDocs,
+    getDocsOfInsumo
 }
