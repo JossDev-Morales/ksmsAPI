@@ -128,10 +128,10 @@ const getDocsOfInsumo = async (req, res) => {
         if (!id) {
             throw new customError({ name: 'invalidId', message: 'id can not be undefined', id })
         }
-        const docList = await docsServices.getAllDocs(id) 
-        const countDocs = await docsServices.countDocs(id)
+        //const countDocs = await docsServices.countDocs(id)
+        const docList = await docsServices.getAllDocs(id)
         res.statis(200).json({
-            count:countDocs,
+            //count:countDocs,
             doc_list:docList
         })
     } catch (error) {
