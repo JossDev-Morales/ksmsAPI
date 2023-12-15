@@ -20,8 +20,7 @@ const docModel = DB.define('doc', {
             "testimonio_poder_tuhabi", "estado_de_cuenta_vendedor","constitucion_regimen_de_propiedad_en_condominio"]
     },
     etapa: {
-        type: DataTypes.ENUM,
-        values:["1","2","3","2o3"]
+        type: DataTypes.INTEGER
     },
     obligatorio: {
         type: DataTypes.BOOLEAN,

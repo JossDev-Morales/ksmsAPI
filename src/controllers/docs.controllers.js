@@ -38,7 +38,7 @@ const createAndAddDoc = async (req, res) => {
         } else if (etapa3.includes(nombre)) {
             etapa = "3"
         } else if (nombre === "doc_excepcion") {
-            etapa = "2o3"
+            etapa = "23"
         } else {
             let customError = new Error('El nombre de tu documento no parece tener asociado una etapa, comunicate con kosmos.')
             throw customError
