@@ -17,7 +17,7 @@ const docModel = DB.define('doc', {
             "sucesion_testamentaria", "constancia_de_uso_de_suelo", "avaluo_propio", "avaluo_bancario",
             "constitución_regimen_de_propiedad_en_condominio", "boleta_de_ingreso_al_rppyc_constancia",
             "reglamento_condominos", "derecho_de_tanto", "certificado_zonificacion", "doc_excepcion",
-            "testimonio_poder_tuhabi", "estado_de_cuenta_vendedor"]
+            "testimonio_poder_tuhabi", "estado_de_cuenta_vendedor","constitucion_regimen_de_propiedad_en_condominio"]
     },
     etapa: {
         type: DataTypes.INTEGER
