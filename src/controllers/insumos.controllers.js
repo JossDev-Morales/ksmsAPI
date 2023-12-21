@@ -33,7 +33,7 @@ const getInsumo = async (req, res) => {
         }
         const insumo = await insumosServices.getInsumoById(id)
         if (insumo === null) {
-            throw new customError({ name: 'wrongId', message: 'this insumo do not exist'})
+            throw new customError({ name: 'wrongId', message: 'this insumo do not exist' })
         }
         res.status(200).json(insumo)
     } catch (error) {
@@ -57,19 +57,26 @@ const deleteInsumo = async (req, res) => {
 }
 const updateEtapa = async (req, res) => {
     try {
-        const { id } = req.body
+        const { id, etapa } = req.body
         if (!id) {
             throw new customError({ name: 'invalId', message: 'id can not be undefined', id })
         }
-        const currentEtapa = await insumosServices.getEtapaById(id)
-        const etapa = currentEtapa + 1
+        if (!etapa) {
+            const currentEtapa = await insumosServices.getEtapaById(id)
+            const newetapa = currentEtapa + 1
 
-        if (etapa > 3) {
-            await insumosServices.upSubetapa(id, "3.1")
-            res.status(200).json({status:'ok'})
+            if (newetapa > 3) {
+                await insumosServices.upSubetapa(id, "3.1")
+                res.status(200).json({ status: 'ok', etapa: "3.1" })
+            } else {
+                await insumosServices.upEtapa(id, newetapa)
+                res.status(200).json({ status: 'ok', etapa: newetapa })
+            }
         } else {
-            await insumosServices.upEtapa(id, etapa)
-            res.status(200).json({status:'ok'})
+            if (etapa == '1' || etapa == '2' || etapa == '3' || etapa == '3.1' || etapa == '4') {
+                await insumosServices.upEtapa(id, etapa)
+                res.status(200).json({ status: 'ok', etapa: etapa })
+            }
         }
 
     } catch (error) {
@@ -86,7 +93,7 @@ const reasonOfRejection = async (req, res) => {
             throw new customError({ name: 'invalData', message: 'motivo_de_rechazo can not be undefined', motivo_de_rechazo })
         }
         const response = await insumosServices.rejectInsumo(id, motivo_de_rechazo)
-        res.status(200).json({status:'ok'})
+        res.status(200).json({ status: 'ok' })
     } catch (error) {
         res.status(200).json({ error })
     }
@@ -101,7 +108,7 @@ const estatusChanger = async (req, res) => {
             throw new customError({ name: 'estatusMissing', message: 'you need to provide an estatus' })
         }
         await insumosServices.changeEstatus(id, estatus)
-        res.status(200).json({status:'ok'})
+        res.status(200).json({ status: 'ok' })
     } catch (error) {
         res.status(200).json({ error })
     }
@@ -110,14 +117,14 @@ const changeActive = async (req, res) => {
     try {
         const { id, activo } = req.body
         if (!id) {
-            throw new customError({name: 'invalId', message: 'id can not be undefined', id })
+            throw new customError({ name: 'invalId', message: 'id can not be undefined', id })
         }
-        if (activo===undefined) {
-            throw new customError({name:'invalidData',message:'Tienes que proporcionar un estado activo'})
+        if (activo === undefined) {
+            throw new customError({ name: 'invalidData', message: 'Tienes que proporcionar un estado activo' })
         }
-        await insumosServices.changeIsActive(id,activo)
+        await insumosServices.changeIsActive(id, activo)
 
-        res.status(200).json({status:'ok'})
+        res.status(200).json({ status: 'ok' })
     } catch (error) {
         res.status(300).json({ error })
     }
