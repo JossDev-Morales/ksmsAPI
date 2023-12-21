@@ -49,7 +49,16 @@ const createAndAddDoc = async (req, res) => {
         } else {
             isRequired = false
         }
-        // aqui ya enviamos la informacion al servicio encargado de crear el documento
+        // ¡¡SOLO SE PODRA INSERTAR DOCUMENTOS SI SE CUMPLEN LAS SIGUIENTES CONDICIONES!!.
+        //si el documento es nuevo se permite cargar documentos y se actualiza como no nuevo, caso contrario, no te permite cargar docs
+        //si el estatus del insumo es igual a uno de los estatus aceptados para inserccion
+        //si la etapa del insumo es 3.1 ya que en esta etapa se permite insertar docs debido a vencimiento fuera de las etapas1,2,3
+        let isNew=await insumosServices.getIsNewStatus(id)
+        let currentEstatus= await insumosServices.getEstatusById(id)
+        let correctEstatus=currentEstatus=="Espera de inserción 2 o 3"||currentEstatus=="Solicitud de complemento"||currentEstatus=="Vivienda lista para notario"
+        let isInEtapa3dot1=await insumosServices.getEtapaById(id)=='3.1'
+        if (isNew||correctEstatus||isInEtapa3dot1) {
+             // aqui ya enviamos la informacion al servicio encargado de crear el documento
         const doc = await docsServices.addDoc(id, { nombre, vigencia, etapa, obligatorio: isRequired, documento, metadatos: { numero_de_cliente, numero_de_credito, numero_de_escritura, fecha_de_escritura, fecha_de_emision, folio_del_documento, entidad_federativa_que_lo_emite, empresa_o_unidad_de_valuacion_que_lo_elabora, numero_de_cuenta, fecha_de_estado_de_cuenta, nombre_de_banco_emisor, fecha_de_vigencia } })
         res.status(201).json({
             requestStatus: `creado y asignado al usuario con id ${id} con exito.`,
@@ -58,6 +67,11 @@ const createAndAddDoc = async (req, res) => {
             requeridoEnEtapa: etapa,
             DocId: doc.id
         })
+        }else{
+            throw new customError({name:'InsercionInvalida',message:'No se ah podido insertar el documento debido a fallo en las validaciones de insercion.', validaciones:{isNew,isInCorrectEstatus:correctEstatus,etapa3dot1:isInEtapa3dot1}})
+        }
+
+       
     } catch (error) {
         res.status(200).json({ error })
     }

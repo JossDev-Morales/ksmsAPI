@@ -137,6 +137,10 @@ const insumosModel = DB.define('insumos', {
     },
     estatus: {
         type: DataTypes.STRING
+    },
+    isNew:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:true
     }
 }, {
     createdAt: 'fechaCreacionInsumo',

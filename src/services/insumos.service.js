@@ -53,8 +53,8 @@ class insumosServices {
     }
     static async updateInsumo(insumo, id) {
         try {
-            const { fecha_consulta_listas_negras,tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus } = insumo
-            const response = await insumosModel.update({ fecha_consulta_listas_negras,tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus }, { where: { id } })
+            const { fecha_consulta_listas_negras, tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus } = insumo
+            const response = await insumosModel.update({ fecha_consulta_listas_negras, tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus }, { where: { id } })
             if (response === null) {
                 throw new customError({ name: 'wrongId', message: 'this insumo do not exist' })
             }
@@ -66,7 +66,29 @@ class insumosServices {
         try {
             await insumosModel.update({ estatus }, { where: { id } })
         } catch (error) {
-            error.where = 'service.insumos.changeEstatus'
+            throw error
+        }
+    }
+    static async getEstatusById(id){
+        try {
+            const response = await insumosModel.findByPk(id)
+            return response.estatus
+        } catch (error) {
+            throw error
+        }
+    }
+    static async changeIsNew(id) {
+        try {
+            await insumosModel.update({ isNew: false }, { where: { id } })
+        } catch (error) {
+            throw error
+        }
+    }
+    static async getIsNewStatus(id){
+        try {
+            const response = await insumosModel.findByPk(id)
+            return response.isNew
+        } catch (error) {
             throw error
         }
     }
