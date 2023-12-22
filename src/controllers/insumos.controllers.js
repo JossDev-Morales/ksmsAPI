@@ -20,7 +20,7 @@ const updateInsumo = async (req, res) => {
             throw new customError({ name: 'invalidData', message: 'insumo can not be undefined', insumo })
         }
         await insumosServices.updateInsumo(insumo, id)
-        res.status(200).send()
+        res.status(200).json({status:'ok'})
     } catch (error) {
         res.status(200).json({ error })
     }
@@ -50,7 +50,7 @@ const deleteInsumo = async (req, res) => {
         if (response === null) {
             throw new customError({ name: 'wrongId', message: 'this insumo do not exist' })
         }
-        res.status(204).send()
+        res.status(204).json({status:'ok'})
     } catch (error) {
         res.status(200).json({ error })
     }
