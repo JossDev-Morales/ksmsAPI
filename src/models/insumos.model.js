@@ -41,6 +41,9 @@ const insumosModel = DB.define('insumos', {
     valor_terreno: {
         type: DataTypes.DOUBLE
     },
+    valor_de_venta:{
+        type:DataTypes.DOUBLE
+    },
     descripcion_de_la_vivienda: {
         type: DataTypes.ENUM,
         values: ["Casa habitacion nueva", "Casa habitacion usada", "Departamento nuevo", "Departamento usado"]
