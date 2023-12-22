@@ -137,6 +137,9 @@ const insumosModel = DB.define('insumos', {
     },
     estatus: {
         type: DataTypes.STRING
+    },
+    responsable_tuhabi:{
+        type:DataTypes.STRING
     }
 }, {
     createdAt: 'fechaCreacionInsumo',
