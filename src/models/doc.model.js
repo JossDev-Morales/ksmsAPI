@@ -39,4 +39,3 @@ const docModel = DB.define('doc', {
     updatedAt: false
 })
 module.exports = docModel
-console.log(new Date("12/09/2023").getMilliseconds())
