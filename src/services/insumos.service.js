@@ -110,5 +110,16 @@ class insumosServices {
             throw error
         }
     }
+    static async getSubetapaById(id){
+        try {
+            const response = await insumosModel.findByPk(id)
+            if (response === null) {
+                throw new customError({ name: 'wrongId', message: 'this insumo do not exist' })
+            }
+            return response.subetapa
+        } catch (error) {
+            throw error
+        }
+    }
 }
 module.exports = insumosServices

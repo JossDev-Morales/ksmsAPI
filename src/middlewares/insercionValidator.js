@@ -11,7 +11,7 @@ const insercionValidator = async (req, res, next) => {
         const { id, doc: { nombre } } = req.body
         let currentEstatus = await insumosServices.getEstatusById(id)
         let correctEstatus = currentEstatus == "Espera de inserción 2 o 3" || currentEstatus == "Solicitud de complemento" || currentEstatus == "Vivienda lista para notario"
-        let isInEtapa3dot1 = await insumosServices.getEtapaById(id) == '3.1'
+        let isInEtapa3dot1 = await insumosServices.getSubetapaById(id) == '3.1'
         let isNew=(await docsServices.getAllDocs(id)).filter(doc => doc.nombre === nombre).length === 0
         if (isNew) {
             next()
