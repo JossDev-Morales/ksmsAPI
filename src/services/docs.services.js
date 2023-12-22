@@ -53,8 +53,10 @@ class docsServices {
             const [mes, dia, año] = vigencia.split('/')
             const nowVigencia = new Date(año, mes - 1, dia)
             const now = new Date()
+            console.log(now.getDate());
             const mlsPerDay = 24 * 60 * 60 * 1000
-            const diff = Math.floor((nowVigencia - now) / mlsPerDay)
+            const diff = Math.floor((now-nowVigencia) / mlsPerDay)
+            console.log(diff);
             if (diff < 7) {
                 return false
             } else {

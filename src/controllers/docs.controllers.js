@@ -17,6 +17,9 @@ const createAndAddDoc = async (req, res) => {
         if (isNaN(new Date(vigencia).getMilliseconds())) {
             throw new customError({ name: 'invalidData', message: 'vigencia tiene un formato errono.', vigencia })
         }
+        if(!docsServices.verifyVigenciaService(vigencia)){
+            throw new customError({name:'VigenciaVencida',message:'Esta vigencia ya caduco',vigencia})
+        }
         if (!documento) {
             throw new customError({ name: 'invalidData', message: 'documento can not be undefined', documento })
         }
