@@ -43,7 +43,7 @@ const createAndAddDoc = async (req, res) => {
             let customError = new Error('El nombre de tu documento no parece tener asociado una etapa, comunicate con kosmos.')
             throw customError
         }
-        const obligatorios = ["titulo_de_propiedad", "boleta_predial", "boleta_agua", "certificado_libertad_de_gravamen", "constancia_de_uso_de_suelo", "avalúo_bancario", "certificado_zonificación", "testimonio_poder_tuhabi", "estado_de_cuenta_vendedor"]
+        const obligatorios = ["titulo_de_propiedad", "boleta_predial", "boleta_agua", "certificado_libertad_de_gravamen", "constancia_de_uso_de_suelo", "avaluo_bancario", "certificado_zonificacion", "testimonio_poder_tuhabi", "estado_de_cuenta_vendedor"]
         if (obligatorios.includes(nombre)) {
             isRequired = true
         } else {
