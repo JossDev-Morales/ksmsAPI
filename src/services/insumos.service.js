@@ -5,10 +5,13 @@ const customError = require('../utils/customError')
 class insumosServices {
     static async createInsumo(insumo) {
         try {
-            const { valor_de_venta,responsable_tuhabi,fecha_consulta_listas_negras,etapa, subetapa, activo, tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus } = insumo
-            let [mes,dia,año]=fecha_consulta_listas_negras.split('/')
-            const fecha_consulta_listas_negrasFormated=new Date(`${dia}/${mes}/${año}`)
-            const response = await insumosModel.create({ valor_de_venta,responsable_tuhabi,fecha_consulta_listas_negras:fecha_consulta_listas_negrasFormated,etapa, subetapa, activo, tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus })
+            const { valor_de_venta, responsable_tuhabi, fecha_consulta_listas_negras, etapa, subetapa, activo, tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus } = insumo
+            let fecha_consulta_listas_negrasFormated
+            if (fecha_consulta_listas_negras) {
+                let [mes, dia, año] = fecha_consulta_listas_negras.split('/')
+                fecha_consulta_listas_negrasFormated = fecha_consulta_listas_negras ? new Date(`${dia}/${mes}/${año}`) : null
+            }
+            const response = await insumosModel.create({ valor_de_venta, responsable_tuhabi, fecha_consulta_listas_negras: fecha_consulta_listas_negrasFormated, etapa, subetapa, activo, tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus })
             return response
         } catch (error) {
             throw error
@@ -53,10 +56,13 @@ class insumosServices {
     }
     static async updateInsumo(insumo, id) {
         try {
-            const { valor_de_venta,responsable_tuhabi,fecha_consulta_listas_negras, tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus } = insumo
-            let [mes,dia,año]=fecha_consulta_listas_negras.split('/')
-            const fecha_consulta_listas_negrasFormated=new Date(`${dia}/${mes}/${año}`)
-            const response = await insumosModel.update({ valor_de_venta,responsable_tuhabi,fecha_consulta_listas_negras:fecha_consulta_listas_negrasFormated, tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus }, { where: { id } })
+            const { valor_de_venta, responsable_tuhabi, fecha_consulta_listas_negras, tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus } = insumo
+            let fecha_consulta_listas_negrasFormated
+            if (fecha_consulta_listas_negras) {
+                let [mes, dia, año] = fecha_consulta_listas_negras.split('/')
+                fecha_consulta_listas_negrasFormated = fecha_consulta_listas_negras ? new Date(`${dia}/${mes}/${año}`) : null
+            }
+            const response = await insumosModel.update({ valor_de_venta, responsable_tuhabi, fecha_consulta_listas_negras: fecha_consulta_listas_negrasFormated, tipo_de_regimen, tipo_de_poder, valor_de_la_vivienda, valor_reposicion, valor_terreno, descripcion_de_la_vivienda, area_construida, antiguedad_de_la_vivienda, calle, numero_exterior, numero_interior, identificar_de_excepcion_numero_interior, ciudad, municipio_o_alcaldia, colonia, estado, codigo_postal, folio_ruv, vendedor_nombre, vendedor_apellido_paterno, vendedor_apellido_materno, vendedor_tipo_de_persona, vendedor_razon_social, vendedor_rfc, vendedor_curp, vendedor_correo_electronico, vendedor_cuenta_clabe, vendedor_calle, vendedor_numero_exterior, vendedor_numero_interior, vendedor_colonia, vendedor_ciudad, vendedor_municipio, vendedor_estado, vendedor_codigo_postal, estatus }, { where: { id } })
             if (response === null) {
                 throw new customError({ name: 'wrongId', message: 'this insumo do not exist' })
             }
@@ -71,7 +77,7 @@ class insumosServices {
             throw error
         }
     }
-    static async getEstatusById(id){
+    static async getEstatusById(id) {
         try {
             const response = await insumosModel.findByPk(id)
             return response.estatus
@@ -86,7 +92,7 @@ class insumosServices {
             throw error
         }
     }
-    static async getIsNewStatus(id){
+    static async getIsNewStatus(id) {
         try {
             const response = await insumosModel.findByPk(id)
             return response.isNew
@@ -112,7 +118,7 @@ class insumosServices {
             throw error
         }
     }
-    static async getSubetapaById(id){
+    static async getSubetapaById(id) {
         try {
             const response = await insumosModel.findByPk(id)
             if (response === null) {
