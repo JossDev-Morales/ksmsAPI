@@ -74,12 +74,13 @@ const verifyDocsObligatorios = async (req, res) => {
         const insumoEtapa = await insumosServices.getEtapaById(id)
         const insumoDocList = await docsServices.getDocsObByEtapaByIdName(id, insumoEtapa)
         const obDocList = docsServices.getDocsObByEtapa(insumoEtapa)
+        console.log({insumoDocList,obDocList});
         const docsFaltantes = obDocList.filter(nombre => {
             if (!insumoDocList.includes(nombre)) {
                 return nombre
             }
         })
-
+        console.log(docsFaltantes);
         res.status(200).json({
             documentos_completos: docsFaltantes.length === 0,
             documentos_faltantes: docsFaltantes
