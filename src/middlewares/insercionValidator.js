@@ -12,12 +12,13 @@ const insercionValidator = async (req, res, next) => {
         let currentEstatus = await insumosServices.getEstatusById(id)
         let correctEstatus = currentEstatus == "Espera de inserción 2 o 3" || currentEstatus == "Solicitud de complemento" || currentEstatus == "Vivienda lista para notario"
         let isInEtapa3dot1 = await insumosServices.getEtapaById(id) == '3.1'
-        if ((await docsServices.getAllDocs(id)).filter(doc => doc.nombre === nombre).length === 0) {
+        let isNew=(await docsServices.getAllDocs(id)).filter(doc => doc.nombre === nombre).length === 0
+        if (isNew) {
             next()
         } else if (correctEstatus || isInEtapa3dot1) {
             next()
         } else {
-            throw new customError({ name: 'InsercionInvalida', message: 'No se ah podido insertar el documento debido a fallo en las validaciones de insercion.', validaciones: { isInCorrectEstatus: correctEstatus, etapa3dot1: isInEtapa3dot1 } })
+            throw new customError({ name: 'InsercionInvalida', message: 'No se ah podido insertar el documento debido a fallo en las validaciones de insercion.', validaciones: { isNew,isIncorrectEstatus: correctEstatus, etapa3dot1: isInEtapa3dot1 } })
         }
     } catch (error) {
         res.status(400).json({ error })
