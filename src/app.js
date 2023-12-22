@@ -19,7 +19,7 @@ initModels()
 DB.authenticate({ logging: false })
     .then(() => { console.log('auth db: ok') })
     .catch((reason) => { console.log('auth failed:', reason) })
-DB.sync({logging: false,alter:true})
+DB.sync({logging: false})
     .then(() => { console.log('sync models: ok') })
     .catch((reason) => { console.log('failed sync:', reason) })
 
