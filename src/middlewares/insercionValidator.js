@@ -18,7 +18,7 @@ const insercionValidator = async (req, res, next) => {
         } else if (correctEstatus || isInEtapa3dot1) {
             next()
         } else {
-            throw new customError({ name: 'InsercionInvalida', message: 'No se ah podido insertar el documento debido a fallo en las validaciones de insercion.', validaciones: { isNew,isIncorrectEstatus: correctEstatus, etapa3dot1: isInEtapa3dot1 } })
+            throw new customError({ name: 'InsercionInvalida', message: 'No se ah podido insertar el documento debido a fallo en las validaciones de insercion.', validaciones: { where:isNew&&isInEtapa3dot1?'invalid estatus':isNew&&correctEstatus?'invalid etapa':'invalid estatus and invalid etapa'} })
         }
     } catch (error) {
         res.status(400).json({ error })
