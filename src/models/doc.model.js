@@ -34,6 +34,9 @@ const docModel = DB.define('doc', {
     },
     metadatos: {
         type: DataTypes.JSON
+    },
+    isRejected:{
+        type:DataTypes.BOOLEAN
     }
 }, {
     updatedAt: false

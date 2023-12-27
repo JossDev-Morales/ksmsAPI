@@ -143,6 +143,21 @@ const insumosModel = DB.define('insumos', {
     },
     responsable_tuhabi:{
         type:DataTypes.STRING
+    },
+    latitud:{
+        type:DataTypes.STRING
+    },
+    longitud:{
+        type:DataTypes.STRING
+    },
+    porcentaje_de_monto:{
+        type:DataTypes.DOUBLE
+    },
+    cantidad_de_monto:{
+        type:DataTypes.DOUBLE
+    },
+    numero_de_pisos_del_inmueble:{
+        type:DataTypes.INTEGER
     }
 }, {
     createdAt: 'fechaCreacionInsumo',
