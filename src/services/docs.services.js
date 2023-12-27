@@ -80,5 +80,12 @@ class docsServices {
             throw error
         }
     }
+    static async updateRejected(id,rejected){
+        try {
+            await docModel.update({isRejected:rejected},{where:{insumo_id:id}})
+        } catch (error) {
+            throw error
+        }
+    }
 }
 module.exports = docsServices

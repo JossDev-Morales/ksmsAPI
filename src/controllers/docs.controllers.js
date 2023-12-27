@@ -17,8 +17,8 @@ const createAndAddDoc = async (req, res) => {
         if (isNaN(new Date(vigencia).getMilliseconds())) {
             throw new customError({ name: 'invalidData', message: 'vigencia tiene un formato errono.', vigencia })
         }
-        if(!docsServices.verifyVigenciaService(vigencia)){
-            throw new customError({name:'VigenciaVencida',message:'Esta vigencia ya caduco',vigencia})
+        if (!docsServices.verifyVigenciaService(vigencia)) {
+            throw new customError({ name: 'VigenciaVencida', message: 'Esta vigencia ya caduco', vigencia })
         }
         if (!documento) {
             throw new customError({ name: 'invalidData', message: 'documento can not be undefined', documento })
@@ -52,7 +52,7 @@ const createAndAddDoc = async (req, res) => {
         } else {
             isRequired = false
         }
-        
+
         // aqui ya enviamos la informacion al servicio encargado de crear el documento
         const doc = await docsServices.addDoc(id, { nombre, vigencia, etapa, obligatorio: isRequired, documento, metadatos: { numero_de_cliente, numero_de_credito, numero_de_escritura, fecha_de_escritura, fecha_de_emision, folio_del_documento, entidad_federativa_que_lo_emite, empresa_o_unidad_de_valuacion_que_lo_elabora, numero_de_cuenta, fecha_de_estado_de_cuenta, nombre_de_banco_emisor, fecha_de_vigencia } })
         res.status(201).json({
@@ -67,7 +67,21 @@ const createAndAddDoc = async (req, res) => {
         res.status(200).json({ error })
     }
 }
-
+const updateDocsRejected = async (req, res) => {
+    try {
+        const { id, rejected } = req.body
+        if (!id) {
+            throw new customError({ name: 'invalidId', message: 'id can not be undefined', id })
+        }
+        if (!rejected) {
+            throw new customError({ name: 'invalidData', message: 'rejected property can not be undefined', id })
+        }
+        await docsServices.updateRejected(id, rejected)
+        res.status(200).json({ status: "ok" })
+    } catch (error) {
+        res.status(400).json({ error })
+    }
+}
 const verifyDocsObligatorios = async (req, res) => {
     try {
         const { id } = req.body
@@ -77,7 +91,7 @@ const verifyDocsObligatorios = async (req, res) => {
         const insumoEtapa = await insumosServices.getEtapaById(id)
         const insumoDocList = await docsServices.getDocsObByEtapaByIdName(id, insumoEtapa)
         const obDocList = docsServices.getDocsObByEtapa(insumoEtapa)
-        console.log({insumoDocList,obDocList});
+        console.log({ insumoDocList, obDocList });
         const docsFaltantes = obDocList.filter(nombre => {
             if (!insumoDocList.includes(nombre)) {
                 return nombre
@@ -149,5 +163,6 @@ module.exports = {
     createAndAddDoc,
     verifyDocsObligatorios,
     verifyVigenciaDocs,
-    getDocsOfInsumo
+    getDocsOfInsumo,
+    updateDocsRejected
 }
