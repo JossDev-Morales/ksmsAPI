@@ -36,7 +36,8 @@ const docModel = DB.define('doc', {
         type: DataTypes.JSON
     },
     isRejected:{
-        type:DataTypes.BOOLEAN
+        type:DataTypes.BOOLEAN,
+        defaultValue:false
     }
 }, {
     updatedAt: false
