@@ -54,7 +54,7 @@ class docsServices {
             const nowVigencia = new Date(año, mes - 1, dia)
             const now = new Date()
             const mlsPerDay = 24 * 60 * 60 * 1000
-            const diff = Math.floor((nowVigencia-now) / mlsPerDay)
+            const diff = Math.floor((nowVigencia - now) / mlsPerDay)
             if (diff < 7) {
                 return false
             } else {
@@ -66,23 +66,23 @@ class docsServices {
     }
     static async getAllDocs(id) {
         try {
-            const docs = await docModel.findAll({where:{insumo_id:id}})
+            const docs = await docModel.findAll({ where: { insumo_id: id } })
             return docs
         } catch (error) {
             throw error
         }
     }
-    static async countDocs(id){
+    static async countDocs(id) {
         try {
-            const count = await docModel.count({where:{insumo_id:id}})
+            const count = await docModel.count({ where: { insumo_id: id } })
             return count
         } catch (error) {
             throw error
         }
     }
-    static async updateRejected(id,rejected){
+    static async updateRejected(id, nombre, isRejected) {
         try {
-            await docModel.update({isRejected:rejected},{where:{insumo_id:id}})
+            await docModel.update({ isRejected }, { where: { insumo_id: id, nombre } })
         } catch (error) {
             throw error
         }
