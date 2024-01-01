@@ -73,8 +73,11 @@ const updateDocsRejected = async (req, res) => {
         if (!id) {
             throw new customError({ name: 'invalidId', message: 'id can not be undefined', id })
         }
-        if (!isRejected) {
+        if (isRejected===undefined) {
             throw new customError({ name: 'invalidData', message: 'rejected property can not be undefined', id })
+        }
+        if (!nombre) {
+            throw new customError({ name: 'invalidData', message: 'nombre can not be undefined', nombre })
         }
         await docsServices.updateRejected(id, nombre, isRejected)
         res.status(200).json({ status: "ok" })
