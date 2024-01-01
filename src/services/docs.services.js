@@ -80,9 +80,36 @@ class docsServices {
             throw error
         }
     }
+    static getCurrentDoc(lista) {
+        const listaDiff = lista.map((doc) => {
+            const nowVigencia = new Date(doc.createdAt);
+            const now = new Date();
+            const mlsPerDay = 24 * 60 * 60 * 1000
+            const value = (nowVigencia - now) / mlsPerDay
+            return { value, docObj: doc }
+        });
+        let menor;
+        let finalDoc;
+        listaDiff.forEach(doc => {
+            if (doc.value < 0) {
+                if (menor ?? -Infinity < doc.value) {
+                    menor = doc.value;
+                    finalDoc = doc.docObj;
+                }
+            } else if (value > 0) {
+                if (menor ?? Infinity > doc.value) {
+                    menor = doc.value;
+                    finalDoc = doc.docObj;
+                }
+            }
+        });
+        return finalDoc
+    }
     static async updateRejected(id, nombre, isRejected) {
         try {
-            await docModel.update({ isRejected }, { where: { insumo_id: id, nombre } })
+            const list = await docModel.findAll({ where: { insumo_id: id, nombre } })
+            const currentDoc=this.getCurrentDoc(list)
+            await docModel.update({ isRejected }, { where: { id: currentDoc.id } })
         } catch (error) {
             throw error
         }
