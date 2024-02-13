@@ -141,7 +141,10 @@ const insumosModel = DB.define('insumos', {
     estatus: {
         type: DataTypes.STRING
     },
-    responsable_tuhabi:{
+    responsable_tuhabi_del_inmueble:{
+        type:DataTypes.STRING
+    },
+    nombre_del_responsable_tuHabi_del_inmueble:{
         type:DataTypes.STRING
     },
     latitud:{
