@@ -48,6 +48,7 @@ const createAndAddDoc = async (req, res) => {
         }
         const etapaInsumo=await insumosServices.getEtapaById(id)
         if(etapa!=etapaInsumo){
+            console.log('checker active');
             throw new customError({name:'invalidEtapa',message:`La etapa de insercion del documento es ${etapa} y la etapa del insumo es ${etapaInsumo}, insercion de documento no valida`,documentoNombre:nombre})
         }
         const obligatorios = ["titulo_de_propiedad", "boleta_predial", "boleta_agua", "certificado_libertad_de_gravamen", "constancia_de_uso_de_suelo", "avaluo_bancario", "certificado_zonificacion", "testimonio_poder_tuhabi", "estado_de_cuenta_vendedor"]
