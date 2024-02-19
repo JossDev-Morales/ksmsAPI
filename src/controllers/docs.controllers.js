@@ -41,10 +41,14 @@ const createAndAddDoc = async (req, res) => {
         } else if (etapa3.includes(nombre)) {
             etapa = "3"
         } else if (nombre === "doc_excepcion") {
-            etapa = "23"
+            etapa = "2o3"
         } else {
             let customError = new Error('El nombre de tu documento no parece tener asociado una etapa, comunicate con kosmos.')
             throw customError
+        }
+        const etapaInsumo=await insumosServices.getEtapaById(id)
+        if(etapa!=etapaInsumo){
+            throw new customError({name:'invalidEtapa',message:`La etapa de insercion del documento es ${etapa} y la etapa del insumo es ${etapaInsumo}, insercion de documento no valida`,documentoNombre:nombre})
         }
         const obligatorios = ["titulo_de_propiedad", "boleta_predial", "boleta_agua", "certificado_libertad_de_gravamen", "constancia_de_uso_de_suelo", "avaluo_bancario", "certificado_zonificacion", "testimonio_poder_tuhabi", "estado_de_cuenta_vendedor"]
         if (obligatorios.includes(nombre)) {
