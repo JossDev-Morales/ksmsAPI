@@ -2,11 +2,11 @@ const {Sequelize} = require('sequelize')
 
 const db=new Sequelize({
     dialect:'postgres',
-    host:'dpg-clokhq946foc73c7ilf0-a',
+    host:'dpg-cnl5b50l5elc73dp493g-a',
     port:5432,
-    username:'ksmsdb_user',
-    password:'R1XQbCkJAEJpUITAAbkFoXb9HkCrxTu7',
-    database:'ksmsdb',
+    username:'kosmos_user',
+    password:'TgGjd4v9M476tidxnVXacbM1AHHr9HSb',
+    database:'kosmos',
     logging:false
 })
 module.exports=db
