@@ -11,6 +11,7 @@ const initModels = require('./models/initModels')
 const insumosRouter = require('./routes/insumos.routes')
 const complementosRouter = require('./routes/complementos.routes')
 const docsRouter= require('./routes/docs.routes')
+const webhooks = require('./routes/webhook')
 
 // db connection
 
@@ -34,7 +35,7 @@ app.use(express.json())
 app.use(insumosRouter)
 app.use(complementosRouter)
 app.use(docsRouter)
-
+app.use(webhooks)
 // api status
 app.get('/', (req, res) => {
     res.send('healthy')

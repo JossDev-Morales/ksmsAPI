@@ -23,3 +23,4 @@ webhooks.get("webhook/response",async (req,res)=>{
         throw error
     }
 })
+module.exports=webhooks
