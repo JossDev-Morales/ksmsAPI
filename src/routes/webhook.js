@@ -14,7 +14,7 @@ webhooks.post("/webhook/response",async (req,res)=>{
         throw error
     }
 })
-webhooks.get("webhook/response",async (req,res)=>{
+webhooks.get("/webhook/response",async (req,res)=>{
     try {
         const {id}=req.body
         const response=await responses.findByPk(id)
